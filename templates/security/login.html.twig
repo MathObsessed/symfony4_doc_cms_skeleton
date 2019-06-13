@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+        Please login
+    </h1>
+
+    {% if error %}
+        <div>
+            {{ error.messageKey }}
+        </div>
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form._remember_me) }}
+
+        <button>
+            Login
+        </button>
+    {{ form_end(form) }}
+
+    <p>
+        Not registered yet? <a href="{{ path('app_register') }}">Register</a>
+    </p>
+{% endblock %}

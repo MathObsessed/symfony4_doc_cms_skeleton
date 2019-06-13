@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+        Registration
+    </h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+
+        <button>
+            Register
+        </button>
+    {{ form_end(form) }}
+
+    <p>
+        <a href="{{ path('app_homepage') }}">Go back</a>
+    </p>
+{% endblock %}
