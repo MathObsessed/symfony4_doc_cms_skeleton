@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
 {% block body %}
     <div id="app">
-        Logged in as: {{ app.user.email }} <a href="{{ path('app_logout') }}">Logout</a>
+        <app/>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        const APP_CONFIG = {
+            userEmail: '{{ app.user.email }}',
+            logoutPath: '{{ path('app_logout') }}'
+        };
+    </script>
+
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
