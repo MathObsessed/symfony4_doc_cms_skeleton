@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
+use App\Service\DocumentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class DefaultController extends AbstractController
 {
+    private $documentService;
+
+    public function __construct(DocumentService $documentService)
+    {
+        $this->documentService = $documentService;
+    }
+
     /**
      * @Route("/register", name="app_register")
      */
@@ -67,7 +75,11 @@ class DefaultController extends AbstractController
      * @Route("/", name="app_homepage")
      * @Route("/{route}", name="vue_router", requirements={"route"="^(?!.*images|_wdt|_profiler).+"})
      */
-    public function index() {
-        return $this->render('default/index.html.twig');
+    public function index()
+    {
+        return $this->render('default/index.html.twig', [
+            'pageTitle' => $this->getParameter('page_title'),
+            'docList' => $this->documentService->findAll(),
+        ]);
     }
 }
