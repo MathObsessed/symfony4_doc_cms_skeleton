@@ -34,7 +34,7 @@ class DefaultController extends AbstractController {
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('default/register.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -46,7 +46,7 @@ class DefaultController extends AbstractController {
     {
         $form = $this->createForm(LoginFormType::class, ['email' => $authenticationUtils->getLastUsername()]);
 
-        return $this->render('security/login.html.twig', [
+        return $this->render('default/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
             'form' => $form->createView(),
         ]);
