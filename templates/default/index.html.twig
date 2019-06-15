@@ -13,9 +13,11 @@
 {% block javascripts %}
     <script type="text/javascript">
         const APP_CONFIG = {
-            userEmail: '{{ app.user.email }}',
+            pageTitle: '{{ pageTitle }}',
+            docList: {{ docList|json_encode|raw }},
             homepagePath: '{{ path('app_homepage') }}',
-            logoutPath: '{{ path('app_logout') }}'
+            logoutPath: '{{ path('app_logout') }}',
+            userEmail: '{{ app.user.email }}'
         };
     </script>
 
