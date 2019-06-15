@@ -44,6 +44,7 @@ class DefaultController extends AbstractController
         }
 
         return $this->render('default/register.html.twig', [
+            'pageTitle' => $this->getParameter('page_title'),
             'form' => $form->createView(),
         ]);
     }
@@ -58,6 +59,7 @@ class DefaultController extends AbstractController
         ]);
 
         return $this->render('default/login.html.twig', [
+            'pageTitle' => $this->getParameter('page_title'),
             'error' => $authenticationUtils->getLastAuthenticationError(),
             'form' => $form->createView(),
         ]);
