@@ -1,18 +1,19 @@
 <template>
-    <div class="wrapper">
-        Logged in as: {{ userEmail }} <a :href=logoutPath>Logout</a>
+    <div>
+        <AppNavBar/>
+        <AppDoc/>
     </div>
 </template>
 
 <script>
+    import AppNavBar from './AppNavBar';
+    import AppDoc from './AppDoc';
+
     export default {
         name: 'App',
-        components: {},
-        data() {
-            return {
-                userEmail: this.$config.userEmail,
-                logoutPath: this.$config.logoutPath
-            }
+        components: {
+            AppNavBar,
+            AppDoc
         }
-    }
+    };
 </script>
