@@ -12,7 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class DefaultController extends AbstractController {
+class DefaultController extends AbstractController
+{
     /**
      * @Route("/register", name="app_register")
      */
@@ -44,7 +45,9 @@ class DefaultController extends AbstractController {
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $form = $this->createForm(LoginFormType::class, ['email' => $authenticationUtils->getLastUsername()]);
+        $form = $this->createForm(LoginFormType::class, [
+            'email' => $authenticationUtils->getLastUsername(),
+        ]);
 
         return $this->render('default/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
