@@ -30,10 +30,9 @@ There **is**:
   - "register"
   - "login"
   - "logout"
-  - and cookie-based "remember me"
+  - cookie-based "remember me"
 
 There is **no**:
 
   - "forgot password"
   - "send email"
-  - etc
