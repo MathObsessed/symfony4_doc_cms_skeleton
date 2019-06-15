@@ -32,12 +32,8 @@ There **is**:
   - "logout"
   - and cookie-based "remember me"
 
-functional implemented.
-
 There is **no**:
 
   - "forgot password"
   - "send email"
   - etc
-
-functional implemented.
