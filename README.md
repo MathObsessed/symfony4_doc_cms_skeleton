@@ -1,6 +1,6 @@
 ### Stack
 
-- Backend (PHP, Symfony 4 + Flex)
+- Backend (PHP 7.1, Symfony 4 + Flex)
 
   - Doctrine ORM
   - Form
@@ -10,9 +10,9 @@
   - Webpack Encore
   - Web-server (dev dependency to handle URLs containing dots, e.g.: "/path/with.dot")
 
-- Frontend (VueJS)
+- Frontend (VueJS 2.6)
 
-  - Bootstrap
+  - Bootstrap 4
   - Router
 
 ### Notes
