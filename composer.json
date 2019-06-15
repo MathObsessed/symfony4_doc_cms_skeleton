@@ -26,7 +26,8 @@
         "symfony/maker-bundle": "^1.11",
         "symfony/monolog-bundle": "^3.0",
         "symfony/profiler-pack": "*",
-        "symfony/var-dumper": "*"
+        "symfony/var-dumper": "*",
+        "symfony/web-server-bundle": "4.3.*"
     },
     "config": {
         "preferred-install": {
