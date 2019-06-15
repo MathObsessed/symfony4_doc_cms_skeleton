@@ -2,11 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>
-            {% block title %}
-                Symfony 4 - Skeleton with login
-            {% endblock %}
-        </title>
+        <title>{% block title %}{{ pageTitle }}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
