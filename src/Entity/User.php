@@ -38,7 +38,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $approved;
+    private $approved = false;
 
     public function getId(): ?int
     {

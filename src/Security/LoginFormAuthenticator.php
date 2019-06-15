@@ -71,6 +71,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if (!($user instanceof User)) {
+            throw new CustomUserMessageAuthenticationException('User object must be of type '.User::class);
+        }
+
+        if (!$user->getApproved()) {
+            throw new CustomUserMessageAuthenticationException('This account must be approved by the administrator before it can login');
+        }
+
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
