@@ -138,6 +138,9 @@
             "./phpcs.xml.dist"
         ]
     },
+    "symfony-bundles/json-request-bundle": {
+        "version": "v2.0.1"
+    },
     "symfony/asset": {
         "version": "v4.3.1"
     },
