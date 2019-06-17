@@ -4,6 +4,7 @@
 
   - Doctrine ORM
   - Form
+  - PHP CodeSniffer (dev dependency)
   - Security
   - Twig
   - Validator
