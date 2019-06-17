@@ -13,8 +13,14 @@
 
 - Frontend (VueJS 2.6)
 
+  - Axios
   - Bootstrap 4
   - Router
+  - Vuex
+
+### Tests
+
+[Test Cases](test/CASES.md)
 
 ### Notes
 
@@ -28,12 +34,13 @@ after which a user may login.
 
 There **is**:
 
-  - "register"
   - "login"
   - "logout"
-  - cookie-based "remember me"
+  - "show documents list"
+  - "register"
 
 There is **no**:
 
   - "forgot password"
+  - "remember me"
   - "send email"
