@@ -6,14 +6,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 
 import router from './router';
+import store from './store';
 import App from './components/App';
 
-Vue.prototype.$config = APP_CONFIG;
-
-new Vue({
-    el: '#app',
-    router: router,
-    components: {
-        App
-    }
-});
+new Vue({ router, store, render: h => h(App) }).$mount('#app');
