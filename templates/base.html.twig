@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{{ pageTitle }}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    {{ encore_entry_link_tags('app') }}
+</head>
+<body>
+    <div id="app" data-title="{{ title }}"{{ login ? (' data-login="' ~ login ~ '"')|raw : '' }}></div>
+    {{ encore_entry_script_tags('app') }}
+</body>
 </html>
