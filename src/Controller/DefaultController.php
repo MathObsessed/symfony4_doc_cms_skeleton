@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\LoginFormType;
 use App\Form\RegistrationFormType;
 use App\Service\DocumentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class DefaultController extends AbstractController
 {
@@ -50,38 +48,31 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/{vueRoute}", requirements={"vueRoute"="^(?!api|_(profiler|wdt)).*"}, name="app_homepage")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function index()
     {
-        $form = $this->createForm(LoginFormType::class, [
-            'email' => $authenticationUtils->getLastUsername(),
-        ]);
-
-        return $this->render('default/login.html.twig', [
-            'pageTitle' => $this->getParameter('page_title'),
-            'error' => $authenticationUtils->getLastAuthenticationError(),
-            'form' => $form->createView(),
+        return $this->render('base.html.twig', [
+            'title' => $this->getParameter('page_title'),
+            'login' => (!empty($this->getUser()) ? $this->getUser()->getUsername() : '')
         ]);
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/api/login", name="api_login")
+     */
+    public function login()
+    {
+        return $this->json([
+            'login' => $this->getUser()->getUsername()
+        ]);
+    }
+
+    /**
+     * @Route("/api/logout", name="api_logout")
      */
     public function logout()
     {
         // controller can be blank: it will never be executed!
-    }
-
-    /**
-     * @Route("/", name="app_homepage")
-     * @Route("/{route}", name="vue_router", requirements={"route"="^(?!.*images|_wdt|_profiler).+"})
-     */
-    public function index()
-    {
-        return $this->render('default/index.html.twig', [
-            'pageTitle' => $this->getParameter('page_title'),
-            'documentList' => $this->documentService->findAll(),
-        ]);
     }
 }
