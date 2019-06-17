@@ -28,8 +28,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -76,7 +80,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         if (!$user->getApproved()) {
-            throw new CustomUserMessageAuthenticationException('This account must be approved by the administrator before it can login');
+            throw new CustomUserMessageAuthenticationException(
+                'This account must be approved by the administrator before it can login'
+            );
         }
 
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
