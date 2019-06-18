@@ -31,16 +31,3 @@ UPDATE user SET approved = TRUE WHERE id = :id
 ```
 
 after which a user may login.
-
-There **is**:
-
-  - "login"
-  - "logout"
-  - "show documents list"
-  - "register"
-
-There is **no**:
-
-  - "forgot password"
-  - "remember me"
-  - "send email"
