@@ -12,7 +12,8 @@ export default new Vuex.Store({
         title: '',
         isLoading: false,
         error: null,
-        login: null
+        login: null,
+        documents: []
     },
     getters: {
         title (state) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
         },
         login (state) {
             return state.login;
+        },
+        documents (state) {
+            return state.documents;
         }
     },
     mutations: {
@@ -75,6 +79,9 @@ export default new Vuex.Store({
         },
         ['CLEAR_ERROR'](state) {
             state.error = null;
+        },
+        ['LOAD_DOCUMENTS'](state, data) {
+            state.documents = data;
         }
     },
     actions: {
@@ -98,7 +105,7 @@ export default new Vuex.Store({
             commit('REGISTRATION');
 
             return api.register(payload.login, payload.password)
-                .then((response) =>
+                .then(response =>
                     typeof response.data.message !== 'undefined' ?
                     commit('REGISTRATION_ERROR', response) :
                     commit('REGISTRATION_SUCCESS')
@@ -107,6 +114,11 @@ export default new Vuex.Store({
         },
         clearError ({ commit }) {
             commit('CLEAR_ERROR');
+        },
+        documents ({ commit }) {
+            return api.documents()
+                .then(response => commit('LOAD_DOCUMENTS', response.data))
+                .catch(() => commit('LOAD_DOCUMENTS', []));
         }
     }
 });

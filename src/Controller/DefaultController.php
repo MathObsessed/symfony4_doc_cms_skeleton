@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Security\Handler;
+use App\Service\DocumentService;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -57,5 +58,17 @@ class DefaultController extends AbstractController
         }
 
         return $response;
+    }
+
+    /**
+     * @Route("/api/documents", name="api_documents")
+     */
+    public function documents(DocumentService $documentService)
+    {
+        if (empty($this->getUser())) {
+            return new JsonResponse(null, Response::HTTP_UNAUTHORIZED);
+        }
+
+        return new JsonResponse($documentService->findAll());
     }
 }

@@ -16,3 +16,9 @@
 - [x] registration attempt with taken email shows 'Email is taken' error message
 - [x] successful registration results in non-approved account created and a redirect to "/login"
 - [x] if there is an error message on the registration form and you click "go back" - there is no error message on the login form
+
+### Navigation bar
+
+- [x] home icon leads to "/"
+- [x] documents list is being loaded from the server
+- [x] "logout" button logs the user out and redirects to "/login"
