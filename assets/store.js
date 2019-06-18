@@ -35,29 +35,29 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        ['INITIALIZING_DATA'](state, data) {
+        ['INITIALIZATION'](state, data) {
             state.title = data.title;
             state.login = data.login;
         },
-        ['AUTHENTICATING'](state) {
+        ['AUTHENTICATION'](state) {
             state.isLoading = true;
             state.error = null;
             state.login = null;
         },
-        ['AUTHENTICATING_SUCCESS'](state, data) {
+        ['AUTHENTICATION_SUCCESS'](state, data) {
             state.isLoading = false;
             state.error = null;
             state.login = data.login;
         },
-        ['AUTHENTICATING_ERROR'](state, error) {
+        ['AUTHENTICATION_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error.data.message || defaultErrorMessage;
             state.login = null;
         },
-        ['LOGGING_OUT'](state) {
+        ['LOGOUT'](state) {
             state.isLoading = true;
         },
-        ['LOGGING_OUT_SUCCESS'](state) {
+        ['LOGOUT_COMPLETE'](state) {
             state.isLoading = false;
             state.login = null;
         },
@@ -72,24 +72,27 @@ export default new Vuex.Store({
         ['REGISTRATION_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error.data.message || defaultErrorMessage;
+        },
+        ['CLEAR_ERROR'](state) {
+            state.error = null;
         }
     },
     actions: {
         init ({ commit }, payload) {
-            commit('INITIALIZING_DATA', payload);
+            commit('INITIALIZATION', payload);
         },
         login ({ commit }, payload) {
-            commit('AUTHENTICATING');
+            commit('AUTHENTICATION');
 
             return api.login(payload.login, payload.password)
-                .then(result => commit('AUTHENTICATING_SUCCESS', result.data))
-                .catch(error => commit('AUTHENTICATING_ERROR', error.response));
+                .then(result => commit('AUTHENTICATION_SUCCESS', result.data))
+                .catch(error => commit('AUTHENTICATION_ERROR', error.response));
         },
         logout ({ commit }) {
-            commit('LOGGING_OUT');
+            commit('LOGOUT');
 
             return api.logout()
-                .then(() => commit('LOGGING_OUT_SUCCESS'));
+                .then(() => commit('LOGOUT_COMPLETE'));
         },
         register ({ commit }, payload) {
             commit('REGISTRATION');
@@ -101,6 +104,9 @@ export default new Vuex.Store({
                     commit('REGISTRATION_SUCCESS')
                 )
                 .catch(error => commit('REGISTRATION_ERROR', error.response));
+        },
+        clearError ({ commit }) {
+            commit('CLEAR_ERROR');
         }
     }
 });
