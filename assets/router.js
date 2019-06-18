@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import store from './store';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
+import HomePage from './components/pages/HomePage';
+import LoginPage from './components/pages/LoginPage';
+import RegisterPage from './components/pages/RegisterPage';
 
 Vue.use(Router);
 
@@ -16,9 +16,9 @@ const clearError = (to, from, next) => {
 const router = new Router({
     mode: 'history',
     routes: [
-        { path: '/', name: 'app_homepage', component: Home, meta: { requiresAuth: true } },
-        { path: '/login', name: 'app_login', component: Login, beforeEnter: clearError },
-        { path: '/register', name: 'app_register', component: Register , beforeEnter: clearError },
+        { path: '/', name: 'app_homepage', component: HomePage, meta: { requiresAuth: true } },
+        { path: '/login', name: 'app_login', component: LoginPage, beforeEnter: clearError },
+        { path: '/register', name: 'app_register', component: RegisterPage , beforeEnter: clearError },
         { path: '*', redirect: { name: 'app_homepage' } }
     ],
     scrollBehavior: function (to, from, savedPosition) {

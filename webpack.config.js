@@ -8,7 +8,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
 
-    .addEntry('app', './assets/app.js')
+    .addEntry('app', './assets/main.js')
     .splitEntryChunks()
     .disableSingleRuntimeChunk()
 
