@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security;
+namespace App\Service;
 
 use App\Entity\User;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
-class Handler extends AbstractGuardAuthenticator
+class SecurityService extends AbstractGuardAuthenticator
 {
     private $entityManager;
     private $passwordEncoder;
