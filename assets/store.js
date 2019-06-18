@@ -13,7 +13,8 @@ export default new Vuex.Store({
         isLoading: false,
         error: null,
         login: null,
-        documents: []
+        documents: [],
+        selectedDocument: localStorage.selectedDocument || null
     },
     getters: {
         title (state) {
@@ -34,8 +35,15 @@ export default new Vuex.Store({
         login (state) {
             return state.login;
         },
-        documents (state) {
-            return state.documents;
+        documentsList (state) {
+            if (state.selectedDocument === null) {
+                return state.documents;
+            }
+
+            return state.documents.filter(name => name !== state.selectedDocument);
+        },
+        selectedDocument (state) {
+            return state.selectedDocument;
         }
     },
     mutations: {
@@ -82,6 +90,10 @@ export default new Vuex.Store({
         },
         ['LOAD_DOCUMENTS'](state, data) {
             state.documents = data;
+        },
+        ['SELECT_DOCUMENT'](state, data) {
+            state.selectedDocument = data;
+            localStorage.selectedDocument = data;
         }
     },
     actions: {
@@ -119,6 +131,9 @@ export default new Vuex.Store({
             return api.documents()
                 .then(response => commit('LOAD_DOCUMENTS', response.data))
                 .catch(() => commit('LOAD_DOCUMENTS', []));
+        },
+        selectDocument ({ commit }, name) {
+            commit('SELECT_DOCUMENT', name);
         }
     }
 });

@@ -8,8 +8,10 @@
 
         <b-navbar-nav class="ml-3">
             <b-nav-text>Document: </b-nav-text>
-            <b-nav-item-dropdown text="select" right>
-                <b-dropdown-item v-for="name in documents" :key="name">{{ name }}</b-dropdown-item>
+            <b-nav-item-dropdown :text=selectedDocument right>
+                <b-dropdown-item v-for="name in documentsList"
+                                 :key="name"
+                                 @click="selectDocument">{{ name }}</b-dropdown-item>
             </b-nav-item-dropdown>
         </b-navbar-nav>
 
@@ -24,16 +26,24 @@
         name: 'NavBar',
         created () {
             this.$store.dispatch('documents')
-                .then(() => this.documents = this.$store.getters.documents);
+                .then(() => this.documentsList = this.$store.getters.documentsList);
         },
         data() {
             return {
                 title: this.$store.getters.title,
                 login: this.$store.getters.login,
-                documents: this.$store.getters.documents
+                documentsList: this.$store.getters.documentsList,
+                selectedDocument: this.$store.getters.selectedDocument || 'selected'
             }
         },
         methods: {
+            selectDocument (event) {
+                this.$store.dispatch('selectDocument', event.target.text)
+                    .then(() => {
+                        this.documentsList = this.$store.getters.documentsList;
+                        this.selectedDocument = this.$store.getters.selectedDocument;
+                    });
+            },
             logout () {
                 this.$store.dispatch('logout')
                     .then(() => this.$router.push({ name: 'app_login' }));
