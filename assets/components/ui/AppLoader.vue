@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: 'Loader',
+        name: 'AppLoader',
         computed: {
             isLoading () {
                 return this.$store.getters.isLoading;

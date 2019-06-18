@@ -1,16 +1,16 @@
 <template>
     <div>
         <router-view></router-view>
-        <Loader/>
+        <app-loader/>
     </div>
 </template>
 
 <script>
-    import Loader from './Loader';
+    import AppLoader from './ui/AppLoader';
 
     export default {
         name: 'App',
-        components: { Loader },
+        components: { AppLoader },
         created () {
             let attributes = this.$parent.$el.attributes;
 
