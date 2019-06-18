@@ -5,6 +5,8 @@ import api from './api';
 
 Vue.use(Vuex);
 
+const defaultErrorMessage = 'Unexpected error';
+
 export default new Vuex.Store({
     state: {
         title: '',
@@ -49,7 +51,7 @@ export default new Vuex.Store({
         },
         ['AUTHENTICATING_ERROR'](state, error) {
             state.isLoading = false;
-            state.error = error.data.message;
+            state.error = error.data.message || defaultErrorMessage;
             state.login = null;
         },
         ['LOGGING_OUT'](state) {
@@ -58,6 +60,18 @@ export default new Vuex.Store({
         ['LOGGING_OUT_SUCCESS'](state) {
             state.isLoading = false;
             state.login = null;
+        },
+        ['REGISTRATION'](state) {
+            state.isLoading = true;
+            state.error = null;
+        },
+        ['REGISTRATION_SUCCESS'](state) {
+            state.isLoading = false;
+            state.error = null;
+        },
+        ['REGISTRATION_ERROR'](state, error) {
+            state.isLoading = false;
+            state.error = error.data.message || defaultErrorMessage;
         }
     },
     actions: {
@@ -76,6 +90,17 @@ export default new Vuex.Store({
 
             return api.logout()
                 .then(() => commit('LOGGING_OUT_SUCCESS'));
+        },
+        register ({ commit }, payload) {
+            commit('REGISTRATION');
+
+            return api.register(payload.login, payload.password)
+                .then((response) =>
+                    typeof response.data.message !== 'undefined' ?
+                    commit('REGISTRATION_ERROR', response) :
+                    commit('REGISTRATION_SUCCESS')
+                )
+                .catch(error => commit('REGISTRATION_ERROR', error.response));
         }
     }
 });

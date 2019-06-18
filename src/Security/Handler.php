@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -90,5 +91,20 @@ class Handler extends AbstractGuardAuthenticator
     public function supportsRememberMe()
     {
         return false;
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @throws UniqueConstraintViolationException
+     */
+    public function registerUser(string $email, string $password)
+    {
+        $user = new User();
+        $user->setEmail($email);
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }

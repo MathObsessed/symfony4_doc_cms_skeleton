@@ -6,5 +6,8 @@ export default {
     },
     logout () {
         return axios.get('/api/logout');
+    },
+    register (login, password) {
+        return axios.post('/api/register', { login, password });
     }
 }

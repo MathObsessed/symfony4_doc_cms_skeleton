@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import store from './store';
 import Home from './components/Home';
 import Login from './components/Login';
+import Register from './components/Register';
 
 Vue.use(Router);
 
@@ -12,6 +13,7 @@ const router = new Router({
     routes: [
         { path: '/', component: Home, meta: { requiresAuth: true } },
         { path: '/login', component: Login },
+        { path: '/register', component: Register },
         { path: '*', redirect: '/' }
     ],
     scrollBehavior: function (to, from, savedPosition) {
