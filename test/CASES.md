@@ -23,3 +23,8 @@
 - [x] when the user selects a document it gets removed from the list and becomes "selected"
 - [x] selected document is "remembered" on page reload
 - [x] "logout" button logs the user out and redirects to "/login"
+
+### Document view
+
+- [x] when there is no selected document show "Select a document to show" message
+- [x] when there is selected document show "{DOCUMENT_NAME}"

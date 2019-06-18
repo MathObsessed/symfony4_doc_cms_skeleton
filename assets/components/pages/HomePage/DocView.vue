@@ -1,11 +1,14 @@
 <template>
-    <b-container fluid>
-        > Selected document name... or empty
-    </b-container>
+    <b-container fluid>{{ selectedDocument }}</b-container>
 </template>
 
 <script>
     export default {
-        name: 'DocView'
+        name: 'DocView',
+        computed: {
+            selectedDocument () {
+                return this.$store.getters.selectedDocument || 'Select a document to show';
+            }
+        }
     };
 </script>

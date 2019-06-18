@@ -25,24 +25,25 @@
     export default {
         name: 'NavBar',
         created () {
-            this.$store.dispatch('documents')
-                .then(() => this.documentsList = this.$store.getters.documentsList);
+            this.$store.dispatch('documents');
         },
         data() {
             return {
                 title: this.$store.getters.title,
-                login: this.$store.getters.login,
-                documentsList: this.$store.getters.documentsList,
-                selectedDocument: this.$store.getters.selectedDocument || 'selected'
+                login: this.$store.getters.login
+            }
+        },
+        computed: {
+            documentsList () {
+                return this.$store.getters.documentsList;
+            },
+            selectedDocument () {
+                return this.$store.getters.selectedDocument || 'selected';
             }
         },
         methods: {
             selectDocument (event) {
-                this.$store.dispatch('selectDocument', event.target.text)
-                    .then(() => {
-                        this.documentsList = this.$store.getters.documentsList;
-                        this.selectedDocument = this.$store.getters.selectedDocument;
-                    });
+                this.$store.dispatch('selectDocument', event.target.text);
             },
             logout () {
                 this.$store.dispatch('logout')
