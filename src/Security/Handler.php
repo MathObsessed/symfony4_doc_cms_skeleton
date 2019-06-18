@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
-class Authenticator extends AbstractGuardAuthenticator
+class Handler extends AbstractGuardAuthenticator
 {
     private $entityManager;
     private $passwordEncoder;
@@ -43,10 +43,9 @@ class Authenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         if ($exception instanceof CustomUserMessageAuthenticationException) {
-            return new JsonResponse([ 'message' => $exception->getMessage() ], Response::HTTP_FORBIDDEN);
-        }
-        else {
-            return new JsonResponse([ 'message' => 'Invalid credentials' ], Response::HTTP_FORBIDDEN);
+            return new JsonResponse([ 'message' => $exception->getMessage() ], Response::HTTP_UNAUTHORIZED);
+        } else {
+            return new JsonResponse([ 'message' => 'Invalid credentials' ], Response::HTTP_UNAUTHORIZED);
         }
     }
 
