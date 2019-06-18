@@ -11,9 +11,9 @@ Vue.use(Router);
 const router = new Router({
     mode: 'history',
     routes: [
-        { path: '/', component: Home, meta: { requiresAuth: true } },
-        { path: '/login', component: Login },
-        { path: '/register', component: Register },
+        { path: '/', name: 'app_homepage', component: Home, meta: { requiresAuth: true } },
+        { path: '/login', name: 'app_login', component: Login },
+        { path: '/register', name: 'app_register', component: Register },
         { path: '*', redirect: '/' }
     ],
     scrollBehavior: function (to, from, savedPosition) {

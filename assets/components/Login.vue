@@ -18,7 +18,7 @@
                         </b-form-group>
 
                         <p>
-                            Not registered yet? <a href="/register">Register</a>
+                            Not registered yet? <router-link :to="{ name: 'app_register' }">Register</router-link>
                         </p>
 
                         <div class="text-center">
@@ -44,7 +44,7 @@
         },
         created () {
             if (this.$store.getters.isAuthenticated) {
-                this.$router.push('/');
+                this.$router.push({ name: 'app_homepage' });
             }
         },
         computed: {
@@ -60,7 +60,7 @@
                 event.preventDefault();
 
                 this.$store.dispatch('login', { login: this.email, password: this.password })
-                    .then(() => this.$router.push('/'));
+                    .then(() => this.$router.push({ name: 'app_homepage' }));
             }
         }
     };

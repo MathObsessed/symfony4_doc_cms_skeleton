@@ -17,6 +17,10 @@
                             <b-form-input v-model="password" type="password" required></b-form-input>
                         </b-form-group>
 
+                        <p>
+                            <router-link :to="{ name: 'app_homepage' }">Go back</router-link>
+                        </p>
+
                         <div class="text-center">
                             <b-button type="submit" variant="dark">Register</b-button>
                         </div>
@@ -40,7 +44,7 @@
         },
         created () {
             if (this.$store.getters.isAuthenticated) {
-                this.$router.push('/');
+                this.$router.push({ name: 'app_homepage' });
             }
         },
         computed: {
@@ -56,7 +60,7 @@
                 event.preventDefault();
 
                 this.$store.dispatch('register', { login: this.email, password: this.password })
-                    .then(() => !this.hasError && this.$router.push('/login'));
+                    .then(() => !this.hasError && this.$router.push({ name: 'app_login' }));
             }
         }
     };
