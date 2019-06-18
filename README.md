@@ -3,7 +3,6 @@
 - Backend (PHP 7.1, Symfony 4 + Flex)
 
   - Doctrine ORM
-  - Form
   - PHP CodeSniffer (dev dependency)
   - Security
   - Twig
