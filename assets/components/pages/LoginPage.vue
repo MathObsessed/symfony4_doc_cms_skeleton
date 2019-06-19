@@ -4,9 +4,7 @@
             <b-col></b-col>
             <b-col cols="5">
                 <b-card class="mt-5" :header=title header-bg-variant="dark" header-text-variant="white" title="Please login">
-                    <div v-if="hasError" class="alert alert-danger" role="alert">
-                        {{ error }}
-                    </div>
+                    <form-errors v-if="hasError" v-bind:error-message="errorMessage" v-bind:errors="errors"/>
 
                     <b-form @submit="login">
                         <b-form-group label="Email:" label-for="email">
@@ -33,8 +31,11 @@
 </template>
 
 <script>
+    import FormErrors from '../ui/FormErrors';
+
     export default {
         name: 'LoginPage',
+        components: { FormErrors },
         data () {
             return {
                 title: this.$store.getters.title,
@@ -51,8 +52,11 @@
             hasError () {
                 return this.$store.getters.hasError;
             },
-            error () {
-                return this.$store.getters.error;
+            errors () {
+                return this.$store.getters.errors;
+            },
+            errorMessage () {
+                return this.$store.getters.errorMessage;
             }
         },
         methods: {

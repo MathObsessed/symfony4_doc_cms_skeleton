@@ -8,8 +8,8 @@ import RegisterPage from './components/pages/RegisterPage';
 
 Vue.use(Router);
 
-const clearError = (to, from, next) => {
-    store.dispatch('clearError');
+const clearErrors = (to, from, next) => {
+    store.dispatch('clearErrors');
     next();
 };
 
@@ -17,8 +17,8 @@ const router = new Router({
     mode: 'history',
     routes: [
         { path: '/', name: 'app_homepage', component: HomePage, meta: { requiresAuth: true } },
-        { path: '/login', name: 'app_login', component: LoginPage, beforeEnter: clearError },
-        { path: '/register', name: 'app_register', component: RegisterPage , beforeEnter: clearError },
+        { path: '/login', name: 'app_login', component: LoginPage, beforeEnter: clearErrors },
+        { path: '/register', name: 'app_register', component: RegisterPage , beforeEnter: clearErrors },
         { path: '*', redirect: { name: 'app_homepage' } }
     ],
     scrollBehavior: function (to, from, savedPosition) {

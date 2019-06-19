@@ -11,7 +11,8 @@ export default new Vuex.Store({
     state: {
         title: '',
         isLoading: false,
-        error: null,
+        errorMessage: null,
+        errors: [],
         login: null,
         documents: [],
         selectedDocument: localStorage.selectedDocument || null
@@ -24,10 +25,13 @@ export default new Vuex.Store({
             return state.isLoading;
         },
         hasError (state) {
-            return (state.error !== null);
+            return (state.errorMessage !== null);
         },
-        error (state) {
-            return state.error;
+        errorMessage (state) {
+            return state.errorMessage;
+        },
+        errors (state) {
+            return state.errors;
         },
         isAuthenticated (state) {
             return !!state.login;
@@ -53,17 +57,20 @@ export default new Vuex.Store({
         },
         ['AUTHENTICATION'](state) {
             state.isLoading = true;
-            state.error = null;
+            state.errorMessage = null;
+            state.errors = [];
             state.login = null;
         },
         ['AUTHENTICATION_SUCCESS'](state, data) {
             state.isLoading = false;
-            state.error = null;
+            state.errorMessage = null;
+            state.errors = [];
             state.login = data.login;
         },
         ['AUTHENTICATION_ERROR'](state, error) {
             state.isLoading = false;
-            state.error = error.data.message || defaultErrorMessage;
+            state.errorMessage = error.message || defaultErrorMessage;
+            state.errors = error.errors || [];
             state.login = null;
         },
         ['LOGOUT'](state) {
@@ -75,18 +82,21 @@ export default new Vuex.Store({
         },
         ['REGISTRATION'](state) {
             state.isLoading = true;
-            state.error = null;
+            state.errorMessage = null;
+            state.errors = [];
         },
         ['REGISTRATION_SUCCESS'](state) {
             state.isLoading = false;
-            state.error = null;
+            state.errorMessage = null;
+            state.errors = [];
         },
         ['REGISTRATION_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error.data.message || defaultErrorMessage;
         },
-        ['CLEAR_ERROR'](state) {
-            state.error = null;
+        ['CLEAR_ERRORS'](state) {
+            state.errorMessage = null;
+            state.errors = [];
         },
         ['LOAD_DOCUMENTS'](state, data) {
             state.documents = data;
@@ -105,7 +115,7 @@ export default new Vuex.Store({
 
             return api.login(payload.login, payload.password)
                 .then(result => commit('AUTHENTICATION_SUCCESS', result.data))
-                .catch(error => commit('AUTHENTICATION_ERROR', error.response));
+                .catch(error => commit('AUTHENTICATION_ERROR', error.response.data));
         },
         logout ({ commit }) {
             commit('LOGOUT');
@@ -124,8 +134,8 @@ export default new Vuex.Store({
                 )
                 .catch(error => commit('REGISTRATION_ERROR', error.response));
         },
-        clearError ({ commit }) {
-            commit('CLEAR_ERROR');
+        clearErrors ({ commit }) {
+            commit('CLEAR_ERRORS');
         },
         documents ({ commit }) {
             return api.documents()

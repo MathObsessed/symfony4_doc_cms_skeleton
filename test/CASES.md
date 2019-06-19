@@ -8,6 +8,11 @@
 - [x] authentication attempt for existing non-approved user shows 'Account requires approval' error message
 - [x] authentication attempt for existing approved user with correct password succeeds
 - [x] if there is an error message on the login form and you click "register" - there is no error message on the registration form
+- [x] display validation errors
+  - [x] more than one validation violation: a@b + 123
+  - [x] one validation violation: a@b + 123456
+  - [x] user requires approval: user2@symfony.com + 123456
+  - [x] non-existing user: user22@symfony.com
 
 ### Registration
 

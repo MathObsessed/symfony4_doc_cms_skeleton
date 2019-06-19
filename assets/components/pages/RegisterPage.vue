@@ -5,7 +5,7 @@
             <b-col cols="5">
                 <b-card class="mt-5" :header=title header-bg-variant="dark" header-text-variant="white" title="Registration">
                     <div v-if="hasError" class="alert alert-danger" role="alert">
-                        {{ error }}
+                        {{ errorMessage }}
                     </div>
 
                     <b-form @submit="register">
@@ -51,8 +51,8 @@
             hasError () {
                 return this.$store.getters.hasError;
             },
-            error () {
-                return this.$store.getters.error;
+            errorMessage () {
+                return this.$store.getters.errorMessage;
             }
         },
         methods: {
