@@ -92,7 +92,8 @@ export default new Vuex.Store({
         },
         ['REGISTRATION_ERROR'](state, error) {
             state.isLoading = false;
-            state.error = error.data.message || defaultErrorMessage;
+            state.errorMessage = error.message || defaultErrorMessage;
+            state.errors = error.errors || [];
         },
         ['CLEAR_ERRORS'](state) {
             state.errorMessage = null;
@@ -127,12 +128,8 @@ export default new Vuex.Store({
             commit('REGISTRATION');
 
             return api.register(payload.login, payload.password)
-                .then(response =>
-                    typeof response.data.message !== 'undefined' ?
-                    commit('REGISTRATION_ERROR', response) :
-                    commit('REGISTRATION_SUCCESS')
-                )
-                .catch(error => commit('REGISTRATION_ERROR', error.response));
+                .then(() => commit('REGISTRATION_SUCCESS'))
+                .catch(error => commit('REGISTRATION_ERROR', error.response.data));
         },
         clearErrors ({ commit }) {
             commit('CLEAR_ERRORS');

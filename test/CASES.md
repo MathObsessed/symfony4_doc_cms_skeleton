@@ -20,6 +20,10 @@
 - [x] registration attempt with taken email shows 'Email is taken' error message
 - [x] successful registration results in non-approved account created and a redirect to "/login"
 - [x] if there is an error message on the registration form and you click "go back" - there is no error message on the login form
+- [x] display validation errors
+  - [x] more than one validation violation: a@b + 123
+  - [x] one validation violation: a@b + 123456
+  - [x] email taken: user1@symfony.com
 
 ### Navigation bar
 
